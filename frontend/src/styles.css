@@ -1,0 +1,114 @@
+:root { --surface-writing: #f0f3ef; --surface-review: #eaf0e9; --surface-current: #e3ece2; font-family: system-ui, sans-serif; color: #303532; background: #f6f7f5; font-synthesis: none; letter-spacing: 0; line-height: 1.6; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 824px; margin: auto; padding: 0 32px 80px; }
+header { display: flex; align-items: center; gap: 16px; min-height: 112px; margin-bottom: 40px; }
+header span { margin-left: auto; font-size: 13px; color: #606963; }
+.brand { color: #303532; font-size: 20px; font-weight: 600; text-decoration: none; }
+h1 { font-size: 32px; font-weight: 500; line-height: 1.3; margin: 0 0 32px; overflow-wrap: anywhere; }
+h2 { font-size: 22px; font-weight: 500; line-height: 1.4; overflow-wrap: anywhere; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; border: 1px solid #7e8981; border-radius: 6px; background: transparent; color: #3c584b; min-height: 44px; line-height: 1.4; }
+button:hover { background: #e7ece7; }
+button:disabled { opacity: .55; cursor: default; }
+.primary { background: #456658; color: #fff; border-color: #456658; margin-top: 24px; padding: 12px 22px; }
+.primary:hover { background: #354f44; }
+.icon { width: 44px; height: 44px; padding: 10px; flex-shrink: 0; border-color: transparent; }
+.text-button, .quiet-button { border-color: transparent; padding: 10px 8px; }
+.text-button { margin: 0 0 32px -8px; }
+.brain-dump, .focus { max-width: 640px; margin: 0 auto; }
+.brain-dump textarea { min-height: 256px; padding: 28px; font-size: 18px; line-height: 1.7; background: var(--surface-writing); border-color: transparent; border-radius: 24px; }
+.draft-list { display: grid; gap: 24px; }
+.draft { background: var(--surface-review); padding: 28px; border-radius: 24px; }
+fieldset { padding: 0; border: 0; min-width: 0; display: grid; gap: 24px; margin: 16px 0 0; }
+fieldset:disabled { opacity: .55; }
+label { display: grid; gap: 8px; font-size: 14px; color: #606963; }
+input:not([type=checkbox]), select, textarea { min-width: 0; width: 100%; border: 1px solid #7e8981; border-radius: 6px; min-height: 44px; padding: 10px 12px; color: #303532; background: #fcfdfb; }
+input:not([type=checkbox]):hover, select:hover, textarea:hover { border-color: #526358; }
+.draft input:not([type=checkbox]), .draft select { background: transparent; border-color: #88958a; }
+.task-title input { font-size: 23px; font-weight: 600; line-height: 1.4; padding: 8px 0; }
+.draft .task-title input { border-color: transparent; }
+.draft input:not([type=checkbox]):hover, .draft select:hover { border-color: #526358; }
+textarea { resize: vertical; }
+.original-dump { margin-bottom: 40px; color: #606963; }
+.original-dump summary { cursor: pointer; font-size: 14px; min-height: 44px; display: list-item; padding: 10px 0; }
+.original-dump p { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; margin: 8px 0 0; }
+.include { display: flex; align-items: center; gap: 10px; min-height: 24px; }
+input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin: 0; accent-color: #456658; }
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+.muted { color: #606963; font-weight: 400; }
+.error { background: #f9efed; color: #8a403a; padding: 16px; border-left: 3px solid #a65349; }
+.first-step { font-size: 20px; line-height: 1.7; overflow-wrap: anywhere; }
+.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+.section-heading h1 { margin: 0; }
+.recommendation { padding: 32px; background: var(--surface-current); border-radius: 24px; }
+.recommendation h2 { font-size: 26px; margin: 0 0 12px; }
+.recommendation > p:not(.first-step) { color: #606963; font-size: 14px; margin: 0 0 24px; }
+.recommendation .first-step { margin: 24px 0 8px; }
+.list-heading { margin: 40px 0 16px; font-size: 16px; color: #606963; }
+.task-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid #e1e5df; }
+.task-row span { overflow-wrap: anywhere; min-width: 0; }
+.task-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.task-actions .primary { margin-top: 0; }
+.row-actions { display: flex; flex-shrink: 0; gap: 4px; }
+.delete-task { color: #8a403a; margin-top: 24px; }
+.focus { padding-top: 8px; max-width: 500px; }
+.focus-task { padding: 38px 40px 30px; min-height: 710px; background: #eaf0e5; border-radius: 18px; overflow: hidden; }
+.focus h1 { margin-bottom: 32px; font-size: 30px; font-weight: 650; color: #202820; }
+.focus h2 { font-size: 16px; color: #536459; margin: 0 0 8px; }
+.focus .first-step { margin: 0; color: #202820; }
+.focus-duration { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.focus-duration legend { font-size: 16px; color: #536459; margin-bottom: 16px; text-align: left; }
+.focus-duration label { display: flex; align-items: center; gap: 8px; padding: 10px; border-radius: 9px; cursor: pointer; font-size: 16px; color: #355344; }
+.focus-duration label:has(input:checked) { background: #d1dfd2; color: #303532; }
+.focus-duration input[type=radio] { width: 16px; min-height: 16px; margin: 0; accent-color: #456658; }
+.focus-ready-controls { text-align: center; }
+.focus-ready-controls .focus-duration { justify-content: space-between; gap: 4px; margin-top: 24px; }
+.focus-ready-controls .primary { margin-top: 26px; min-width: 246px; min-height: 60px; border-radius: 11px; font-size: 20px; }
+.focus-journey { display: block; width: calc(100% + 80px); max-width: none; aspect-ratio: 2; height: auto; margin: 10px -40px 12px; }
+.journey-background { fill: #d8e3d7; }
+.journey-grass { fill: none; stroke: #9fb5a2; stroke-width: 1.5; stroke-linecap: round; }
+.journey-stone { fill: #aebfaf; }
+.journey-plant { fill: #738e76; stroke: #738e76; stroke-width: 1.8; stroke-linecap: round; }
+.companion-motion { display: none; fill: none; stroke: #648573; stroke-width: 2; stroke-linecap: round; }
+.phase-running .companion-motion, .phase-paused .companion-motion { display: inline; }
+.companion-life { transform-box: fill-box; transform-origin: center bottom; }
+.phase-running .companion-life, .phase-paused .companion-life { animation: companion-shift 2.8s ease-in-out infinite; }
+.phase-paused .companion-life { animation-play-state: paused; }
+@keyframes companion-shift {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.02, .98); }
+}
+.journey-earth { fill: #b7c8ac; opacity: .55; }
+.journey-path { fill: none; stroke: none; }
+.journey-rest { display: none; }
+.is-untimed .journey-rest { display: inline; }
+.focus-clock { font-size: 42px; line-height: 1.2; font-variant-numeric: tabular-nums; text-align: center; color: #202820; margin-top: 18px; }
+.session-status { min-height: 26px; margin: 2px 0 0; color: #536459; text-align: center; }
+.focus-actions { justify-content: center; gap: 26px; margin-top: 34px; }
+.focus-finished .focus-actions { flex-direction: column; gap: 12px; margin-top: 22px; }
+.focus-actions .continue-focus { background: #d8e3d3; padding: 15px 26px; border-radius: 11px; }
+.complete-task { display: flex; margin: 22px auto 0; padding-top: 22px; border-top: 1px solid #d3dfcf; border-radius: 0; font-size: 16px; }
+@media (prefers-reduced-motion: reduce) {
+  .companion-life { animation: none !important; }
+  .companion-motion { display: none !important; }
+  .journey-route { display: none; }
+  .journey-rest { display: inline; }
+}
+:focus-visible { outline: 3px solid #785b26; outline-offset: 3px; }
+@media (max-width: 520px) {
+  main { padding: 0 20px 48px; }
+  header { min-height: 88px; gap: 8px; margin-bottom: 32px; }
+  .draft { padding: 20px; }
+  h1 { font-size: 28px; }
+  .task-title input { font-size: 20px; }
+  .fields { grid-template-columns: 1fr; }
+  .brain-dump textarea { padding: 20px; }
+  .recommendation, .focus-task { padding: 24px; }
+  .focus-task { min-height: 650px; }
+  .focus h1 { font-size: 26px; }
+  .focus-journey { width: calc(100% + 48px); margin-left: -24px; margin-right: -24px; }
+  .focus-duration label { font-size: 14px; padding: 10px 6px; gap: 6px; }
+  .focus-ready-controls .primary { min-width: 0; width: 80%; }
+  .section-heading { margin-bottom: 32px; }
+}
