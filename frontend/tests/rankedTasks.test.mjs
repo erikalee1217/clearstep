@@ -7,7 +7,7 @@ const source = await readFile(new URL('../src/rankedTasks.ts', import.meta.url),
 const { outputText } = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } });
 const { resolveRanking } = await import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);
 const tasks = Object.freeze(['A', 'B', 'C', 'D'].map(id => Object.freeze({
-  id, title: id, status: 'todo', importance: 'normal', start_friction: null,
+  id, title: id, status: 'todo', importance: 'normal',
   created_at: '2026-10-12T00:00:00Z',
 })));
 const snapshot = (tasks, ids, refresh = 0) => ({

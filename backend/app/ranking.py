@@ -25,12 +25,11 @@ def rank_tasks(tasks: list[ConfirmedTask], now: datetime, zone: ZoneInfo) -> lis
         return task.due_at is not None and deadline(task) <= now + timedelta(hours=24)
 
     def key(task):
-        friction = {"low": 0, "medium": 1, None: 1, "high": 2}[task.start_friction]
         tail = (task.created_at.astimezone(timezone.utc),)
         if urgent(task):
-            return (0, deadline(task), friction, *tail)
+            return (0, deadline(task), *tail)
         near_deadline = deadline(task) if deadline(task) <= horizon else infinity
-        return (1, task.importance != "high", friction, near_deadline, *tail)
+        return (1, task.importance != "high", near_deadline, *tail)
 
     def reasons(task):
         if urgent(task):
@@ -40,8 +39,6 @@ def rank_tasks(tasks: list[ConfirmedTask], now: datetime, zone: ZoneInfo) -> lis
         result = []
         if task.importance == "high":
             result.append("Marked important")
-        if task.start_friction == "low":
-            result.append("Low start friction")
         if deadline(task) <= horizon:
             result.append("Due within 7 days")
         return result or ["Available task; ties use oldest first"]

@@ -27,11 +27,11 @@ def step():
 
 
 def test_five_examples():
-    a = task(1, due_at=NOW.replace(hour=17), start_friction="high")
-    b = task(2, importance="high", start_friction="low", created_at=NOW - timedelta(days=2), **step())
-    c = task(3, importance="high", start_friction="low", due_date="2026-10-09", **step())
-    d = task(4, importance="high", start_friction="low", due_date="2026-10-08", created_at=NOW - timedelta(days=5))
-    e = task(5, start_friction="low", created_at=NOW - timedelta(days=6), **step())
+    a = task(1, due_at=NOW.replace(hour=17))
+    b = task(2, importance="high", created_at=NOW - timedelta(days=2), **step())
+    c = task(3, importance="high", due_date="2026-10-09", **step())
+    d = task(4, importance="high", due_date="2026-10-08", created_at=NOW - timedelta(days=5))
+    e = task(5, created_at=NOW - timedelta(days=6), **step())
     assert order(e, d, c, b, a) == [1, 4, 3, 2, 5]
 
 
@@ -50,14 +50,6 @@ def test_date_only_today_and_overdue_are_urgent_but_tomorrow_is_not():
 
 def test_date_only_uses_local_end_of_day():
     assert order(task(1, due_date="2026-10-06"), task(2, due_at=NOW.replace(hour=23))) == [2, 1]
-
-
-def test_importance_then_friction():
-    assert order(task(1, **step(), start_friction="low"), task(2, importance="high"), task(3, importance="high", start_friction="high", **step()), task(4, importance="high", start_friction="low", **step())) == [4, 2, 3, 1]
-
-
-def test_unknown_friction_equals_medium_not_low():
-    assert order(task(1), task(2, start_friction="medium"), task(3, start_friction="low"), task(4, start_friction="high")) == [3, 1, 2, 4]
 
 
 def test_deadline_then_age_then_input_order():
@@ -114,10 +106,10 @@ def test_older_batch_keeps_age_advantage_and_internal_order():
     assert order(*newer, *older) == [8, 7, 1, 2]
 
 
-def test_near_deadlines_remain_after_importance_and_friction():
-    dated = task(1, due_at=NOW + timedelta(days=2), start_friction="high")
+def test_near_deadlines_remain_after_importance():
+    dated = task(1, due_at=NOW + timedelta(days=2))
     assert order(dated, task(2, importance="high")) == [2, 1]
-    assert order(dated, task(2, start_friction="low")) == [2, 1]
+    assert order(dated, task(2)) == [1, 2]
 
 
 @pytest.mark.parametrize("due_at", [None, NOW + timedelta(hours=2), NOW + timedelta(days=3)])
@@ -152,7 +144,6 @@ def test_first_step_does_not_affect_explanations(due_at):
     baseline = rank_tasks([plain], NOW, ZONE)[0].reasons
     result = rank_tasks([with_step], NOW, ZONE)[0].reasons
     assert result == baseline
-    assert "Reviewed first step" not in result
 
 
 def test_draft_cannot_enter_rank_request():

@@ -27,7 +27,6 @@ class DraftTask(BaseModel):
 
 class ConfirmedTask(DraftTask):
     id: UUID
-    start_friction: Literal["low", "medium", "high"] | None = None
     status: Literal["todo", "done"] = "todo"
     created_at: AwareDatetime
 

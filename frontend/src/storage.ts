@@ -16,7 +16,10 @@ export function loadTasks(): ConfirmedTask[] {
   if (!Array.isArray(value) || !value.every(task => task && typeof task.id === 'string' && typeof task.title === 'string' && ['todo', 'done'].includes(task.status))) {
     throw new Error('Saved tasks could not be read.');
   }
-  return value as ConfirmedTask[];
+  // Discard the field written by older versions before sending tasks to /rank.
+  return (value as (ConfirmedTask & { start_friction?: unknown })[]).map(
+    ({ start_friction: _, ...task }) => task,
+  );
 }
 export function saveTasks(tasks: ConfirmedTask[]): void {
   localStorage.setItem(KEY, JSON.stringify(tasks));

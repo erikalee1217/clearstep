@@ -7,12 +7,12 @@ const source = await readFile(new URL('../src/taskEditing.ts', import.meta.url),
 const { outputText } = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } });
 const { editTask } = await import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);
 const original = Object.freeze({ id: 'original', title: 'Portfolio', importance: 'high',
-  first_step: 'Choose one section', first_step_origin: 'suggested', start_friction: null,
+  first_step: 'Choose one section', first_step_origin: 'suggested',
   due_date: '2026-10-12', due_at: null, created_at: '2026-10-06T02:00:00Z', status: 'todo' });
 
-test('edits only allowed fields without mutating identity, age, status or friction', () => {
+test('edits only allowed fields without mutating identity, age or status', () => {
   const updated = editTask(original, { ...original, id: 'changed', created_at: 'changed',
-    status: 'done', start_friction: 'high', title: '  Updated portfolio  ', importance: 'normal' });
+    status: 'done', title: '  Updated portfolio  ', importance: 'normal' });
   assert.deepEqual(updated, { ...original, title: 'Updated portfolio', importance: 'normal' });
   assert.equal(original.title, 'Portfolio');
   const done = { ...original, status: 'done' };

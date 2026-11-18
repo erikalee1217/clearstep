@@ -37,7 +37,7 @@ Confirmed tasks are stored locally in the browser, while the backend stays state
 
 Because a valid JSON response doesn't always mean the AI understood correctly, I built a semantic evaluation suite to test things like task extraction, deadline interpretation, and first-step attribution.
 
-- **117 offline backend tests** and **22 frontend tests** passing in the latest verified runs.
+- **115 offline backend tests** and **22 frontend tests** passing in the latest verified runs.
 - **43/45** automated checks passed in the initial live LLM baseline.
 - A targeted prompt update improved first-step attribution in selected cases; **10/12** subsequent targeted cases had no automated strict failures.
 

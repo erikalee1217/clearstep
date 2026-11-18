@@ -8,7 +8,6 @@ export type DraftTask = {
 };
 export type ConfirmedTask = DraftTask & {
   id: string;
-  start_friction: 'low' | 'medium' | 'high' | null;
   status: 'todo' | 'done';
   created_at: string;
 };
