@@ -40,7 +40,7 @@ I'd like to feel healthier and less scattered. Maybe go for a twenty-minute walk
 There's also my portfolio case study. First finish the project write-up, then add the project to my resume, then send the application. Wait, the application is due tomorrow, so I might need to use the current portfolio instead. I haven't decided.
 
 And the laundry. Please don't let the laundry disappear from this list."""
-# Preserve the typography of the approved conversational input.
+# Use curly apostrophes in the long brain dump.
 LONG_TEXT = LONG_TEXT.replace("'", "\u2019")
 
 PROJECT = Expected("project_addition", (

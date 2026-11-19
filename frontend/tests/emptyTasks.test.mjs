@@ -6,7 +6,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import ts from 'typescript';
 
-// Compile the existing app for a render-only test, without adding a DOM library.
+// Compile TS and TSX so Node can load the components for server rendering.
 const require = createRequire(import.meta.url);
 const previous = ['.ts', '.tsx'].map(extension => require.extensions[extension]);
 let App;

@@ -8,7 +8,7 @@ import {
   RotateCcw,
   Trash2,
 } from 'lucide-react';
-import { dateInput, defaultDueAt } from './date';
+import { changeDeadlineMode, dateInput } from './date';
 import { confirmBatch, type ReviewTask } from './confirmation';
 import { editTask } from './taskEditing';
 import FocusMode from './FocusMode';
@@ -360,12 +360,7 @@ export default function App() {
                     onChange={(event) =>
                       setEditingTask({
                         ...editingTask,
-                        due_date:
-                          event.target.value === 'date'
-                            ? dateInput(new Date())
-                            : null,
-                        due_at:
-                          event.target.value === 'time' ? defaultDueAt() : null,
+                        ...changeDeadlineMode(editingTask, event.target.value),
                       })
                     }
                   >
@@ -576,16 +571,10 @@ export default function App() {
                                 : 'none'
                           }
                           onChange={(event) =>
-                            update(index, {
-                              due_date:
-                                event.target.value === 'date'
-                                  ? dateInput(new Date())
-                                  : null,
-                              due_at:
-                                event.target.value === 'time'
-                                  ? defaultDueAt()
-                                  : null,
-                            })
+                            update(
+                              index,
+                              changeDeadlineMode(task, event.target.value),
+                            )
                           }
                         >
                           <option value="none">None</option>

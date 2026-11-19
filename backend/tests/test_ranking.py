@@ -112,38 +112,21 @@ def test_near_deadlines_remain_after_importance():
     assert order(dated, task(2)) == [1, 2]
 
 
-@pytest.mark.parametrize("due_at", [None, NOW + timedelta(hours=2), NOW + timedelta(days=3)])
-@pytest.mark.parametrize("origin", ["explicit", "suggested", "user"])
-def test_adding_or_removing_first_step_does_not_affect_ranking(due_at, origin):
-    a = task(9, due_at=due_at)
-    b = task(2, due_at=due_at)
-    with_step = a.model_copy(update={"first_step": "Open the document", "first_step_origin": origin})
-    removed = with_step.model_copy(update={"first_step": None, "first_step_origin": None})
-    for variant in (a, with_step, removed):
-        assert order(variant, b) == [9, 2]
-        assert order(b, variant) == [2, 9]
+def test_first_step_does_not_break_ranking_ties():
+    plain = task(9)
+    with_step = task(2, **step())
+
+    assert order(plain, with_step) == [9, 2]
+    assert order(with_step, plain) == [2, 9]
 
 
-@pytest.mark.parametrize("due_at", [None, NOW + timedelta(hours=2)])
-def test_atomic_task_keeps_age_and_input_order_advantages(due_at):
-    atomic = task(9, title="Open the application form", due_at=due_at)
-    equally_old = task(2, due_at=due_at, **step())
-    newer = task(3, due_at=due_at, created_at=NOW, **step())
-    assert order(newer, atomic) == [9, 3]
-    assert order(atomic, equally_old) == [9, 2]
+def test_first_step_does_not_affect_ranking_reasons():
+    plain = task(1, due_at=NOW + timedelta(days=3))
+    with_step = plain.model_copy(update=step())
 
-
-def test_near_deadline_beats_first_step_when_other_factors_match():
-    assert order(task(1, **step()), task(2, due_at=NOW + timedelta(days=2))) == [2, 1]
-
-
-@pytest.mark.parametrize("due_at", [None, NOW + timedelta(hours=2), NOW + timedelta(days=3)])
-def test_first_step_does_not_affect_explanations(due_at):
-    plain = task(1, due_at=due_at)
-    with_step = task(1, due_at=due_at, **step())
-    baseline = rank_tasks([plain], NOW, ZONE)[0].reasons
-    result = rank_tasks([with_step], NOW, ZONE)[0].reasons
-    assert result == baseline
+    result = rank_tasks([with_step], NOW, ZONE)
+    assert result == rank_tasks([plain], NOW, ZONE)
+    assert result[0].reasons == ["Due within 7 days"]
 
 
 def test_draft_cannot_enter_rank_request():

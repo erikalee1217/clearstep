@@ -63,8 +63,8 @@ First steps:
 - Use 'explicit' only when the user supplies an action as a starting step or
   prerequisite for that task. Merely stating or repeating the task, or saying
   when they plan to work on it, does not supply an explicit first step. In those
-  cases, apply the existing suggested-step/null rules. Preserve genuinely
-  supplied first steps unchanged, including broad ones.
+  cases, follow the rules below to decide whether to suggest a step or return
+  null. Preserve genuinely supplied first steps unchanged, including broad ones.
 - Preserve a user's explicitly stated first step and wording with origin
   'explicit', even if broad. Do not simplify or replace it. The following
   small-step rules apply only to suggested steps.

@@ -139,7 +139,7 @@ def pytest_runtest_call(item):
     recorder = Recorder(item.config._semantic_run / str(uuid4()), item.nodeid)
     item.config._semantic_recorders[item.nodeid] = recorder
     recorder.save()
-    # Existing live tests import extract_tasks into their own module.
+    # Patch the test module because it imports extract_tasks directly.
     original = getattr(item.module, "extract_tasks", None)
     if original is None:
         recorder.data["instrumentation_errors"].append("MissingExtractTasksBinding")
